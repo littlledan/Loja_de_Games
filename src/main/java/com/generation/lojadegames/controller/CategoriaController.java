@@ -25,7 +25,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/categorias")
-@CrossOrigin(origins = "*", allowedHeaders = "+")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CategoriaController {
 	
 	@Autowired
@@ -44,9 +44,10 @@ public class CategoriaController {
 	}
 	
 	@GetMapping("/tipo/{tipo}")
-	public ResponseEntity<List<Categoria>> getByTitle(@PathVariable String tipo){
-		        return ResponseEntity.ok(categoriaRepository
-		            .findAllByTipoContainingIgnoreCase(tipo));
+	public ResponseEntity<List<Categoria>> getByTitle(@PathVariable
+	String tipo){
+		return ResponseEntity.ok(categoriaRepository
+		    .findAllByTipoContainingIgnoreCase(tipo));
 	}
 	
 	@PostMapping
@@ -64,13 +65,13 @@ public class CategoriaController {
     }
 	
 	 @ResponseStatus(HttpStatus.NO_CONTENT)
-	    @DeleteMapping("/{id}")
-	    public void delete(@PathVariable Long id) {
-	        Optional<Categoria> categoria = categoriaRepository.findById(id);
+	 @DeleteMapping("/{id}")
+	 public void delete(@PathVariable Long id) {
+	     Optional<Categoria> categoria = categoriaRepository.findById(id);
 	        
-	        if(categoria.isEmpty())
-	            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+	     if(categoria.isEmpty())
+	         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 	        
-	        categoriaRepository.deleteById(id);
+	     categoriaRepository.deleteById(id);
 	 }
 }
